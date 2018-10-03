@@ -19,16 +19,22 @@ def display_time():
     plt.xticks(np.arange(len(dates)), dates)
     plt.legend()
     plt.show()
-    print("Here's your workout durations! You averaged at {}".format(np.mean(time)))
+    print("+====================+")
+    print("+  Average Duration  +")
+    print("+====================+")
+    print("{} Minutes".format(np.mean(round(time,2))))
+    print("{} Hours || {} Minutes".format(ceil(np.mean(round(time,2))/60), ceil(np.mean(round(time,2)%60))))
 
 
 def display_weights():
     df = pd.read_csv('log.csv')
-    print("Here's your weight progression!") 
+    print("+=======================+")
+    print("+  Workout Progression  +")
+    print("+=======================+")
     dates = df['DATE']
     df.drop(['DATE', 'DURATION'], axis=1, inplace=True)
     count = 1
-    plt.figure(figsize=(15,13))
+    plt.figure(figsize=(10,8))
     plt.title("WEIGHT OVER TIME")
     for col in df.columns:
         weights = df[col][df[col] != 0]
@@ -43,24 +49,25 @@ def display_weights():
 
 def log():
     workouts = []
-    print("---------------------------------------")
-    print("Enter Workout, leave empty if finished")
-    print("---------------------------------------")
+    print("+==========================================+")
+    print("+  Enter Workout, leave empty if finished  +")
+    print("+==========================================+")
     workout = input("Workout name: ").upper().replace(' ', '_'), [input("Weight: ")]
 
     while workout[0] and workout[1]:
         workouts.append(workout)
-        print("---------------------------------------")
-        print("Enter Workouts, leave empty if finished")
-        print("---------------------------------------")
+        print("+==========================================+")
+        print("+  Enter Workout, leave empty if finished  +")
+        print("+==========================================+")
         workout = input("Workout name: ").upper().replace(' ', '_'), [input("Weight: ")]
 
     work_dict = dict((x, y) for x, y in workouts)
-    print("=======================")
-    work_dict['DATE'] = input("Date MM/DD/YYYY: ")
-    print("=======================")
-    work_dict['DURATION'] = input("Length of workout HH:MM: ")
-    print("=======================")
+    print("+==========================+")
+    work_dict['DATE'] = input("+  Date MM/DD/YYYY: ")
+    print("+==========================+\n")
+    print("+================================+")
+    work_dict['DURATION'] = input("+  Length of workout HH:MM: ")
+    print("+================================+")
 
     try:
         df_base = pd.read_csv("log.csv")
@@ -82,11 +89,12 @@ def display():
     
 
 def main():
-    intro = "Hello! Welcome to your workout log :^)"
-    outro = "Great update! Time for a preview of your progress:"
+    intro = "|~~|~~\|~~  /\  | /  /\  ~~//~~\~|~|~~\ \n|--|__/|-- /__\ |(  /__\  /|    || |   | \n|  |  \|__/    \| \/    \/__\__/_|_|__/ "
     print(intro)
     log()
-    print(outro)
+    print("+=======================+")
+    print("+  DISPLAYING PROGRESS  +")
+    print("+=======================+")
     display()
 
 
