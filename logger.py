@@ -2,14 +2,19 @@
 import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
-from math import ceil
+
+
+def print_maxs(df):
+    for x in df:
+        if x != 'DURATION' and x != 'DATE':
+            print("+ {} MAX WEIGHT: {}".format(x.replace('_', ' '), max(df[x])))
 
 
 def display_time():
     df = pd.read_csv('log.csv')
     time = df['DURATION']
     dates = df['DATE']
-    time = [int(x[:x.index(':')]) * 60 + int(x[x.index(':')+1:]) for x in time]
+    time = round(np.mean([int(x[:x.index(':')]) * 60 + int(x[x.index(':')+1:]) for x in time]), 2)
 
     plt.figure()
     plt.title("Workout duration over time")
@@ -19,11 +24,13 @@ def display_time():
     plt.xticks(np.arange(len(dates)), dates)
     plt.legend()
     plt.show()
+
     print("+====================+")
     print("+  Average Duration  +")
     print("+====================+")
-    print("{} Minutes".format(np.mean(round(time,2))))
-    print("{} Hours || {} Minutes".format(ceil(np.mean(round(time,2))/60), ceil(np.mean(round(time,2)%60))))
+    print("{} Minutes".format(time))
+    print("{} Hours || {} Minutes".format(round(time/60+0.5), round(time%60+0.5)))
+    print("Longest workout time (HH:MM): {}".format(max(df['DURATION'])))
 
 
 def display_weights():
@@ -31,9 +38,11 @@ def display_weights():
     print("+=======================+")
     print("+  Workout Progression  +")
     print("+=======================+")
+    print_maxs(df)
     dates = df['DATE']
     df.drop(['DATE', 'DURATION'], axis=1, inplace=True)
     count = 1
+
     plt.figure(figsize=(10,8))
     plt.title("WEIGHT OVER TIME")
     for col in df.columns:
@@ -92,9 +101,6 @@ def main():
     intro = "|~~|~~\|~~  /\  | /  /\  ~~//~~\~|~|~~\ \n|--|__/|-- /__\ |(  /__\  /|    || |   | \n|  |  \|__/    \| \/    \/__\__/_|_|__/ "
     print(intro)
     log()
-    print("+=======================+")
-    print("+  DISPLAYING PROGRESS  +")
-    print("+=======================+")
     display()
 
 
