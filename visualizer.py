@@ -4,7 +4,7 @@ import numpy as np
 
 def print_maxs(df=pd.read_csv('log.csv').drop(['DURATION', 'DATE'], axis=1)):
     for x in df:
-        print("+ {} MAX WEIGHT: {} lbs".format(x.replace('_', ' '), max(df[x])))
+        print("\033[1m+ {} MAX WEIGHT\033[0m: {} lbs".format(x.replace('_', ' '), max(df[x])))
     print()
 
 

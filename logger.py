@@ -8,14 +8,14 @@ def log():
     print("+==========================================+")
     print("+  Enter Workout, leave empty if finished  +")
     print("+==========================================+")
-    workout = input("Workout name: ").upper().replace(' ', '_'), [input("Weight: ")]
+    workout = input("Workout name: ").upper().replace(' ', '_').strip(), [input("Weight: ")]
 
     while workout[0] and workout[1]:
         workouts.append(workout)
         print("+==========================================+")
         print("+  Enter Workout, leave empty if finished  +")
         print("+==========================================+")
-        workout = input("Workout name: ").upper().replace(' ', '_'), [input("Weight: ")]
+        workout = input("Workout name: ").upper().replace(' ', '_').strip(), [input("Weight: ")]
 
     work_dict = dict((x, y) for x, y in workouts)
     print("+==========================+")
